@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>The Hyacinth Archive - 2025</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="images/page1.png" as="image">
+    <link rel="preload" href="images/page2.png" as="image">
+</head>
+<body>
+    <div class="page-transition-overlay"></div>
+    <header>
+        <div class="header-container">
+            <button id="menuBtn">&#9776; Menu</button>
+            <h1>The Hyacinth Archive <img src="images/logo.png" width="75px" ></h1>
+        </div>
+    </header>
+    <nav id="sidebar">
+        <ul>
+            <li>Publication Archive</li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="2025.html">2025</a></li>
+            <li><a href="2024.html">2024</a></li>
+            <li><a href="2023.html">2023</a></li>
+            <li><a href="2019.html">2019</a></li>
+            <li><a href="2018.html">2018</a></li>
+            <li><a href="2017.html">2017</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="publication">
+            <h2>Latest Publication</h2>
+            <div class="pdf-viewer">
+                <!-- Navigation Arrows -->
+                <button class="nav-btn prev-btn">&lt;</button>
+                <button class="nav-btn next-btn">&gt;</button>
+
+                <!-- Page Container -->
+                <div class="page-container">
+                    <img src="images/page1.png" alt="Page 1" class="page active">
+                    <img src="images/page2.png" alt="Page 2" class="page">
+                    <img src="images/page3.png" alt="Page 3" class="page">
+                    <img src="images/page4.png" alt="Page 4" class="page">
+                    <img src="images/page5.png" alt="Page 5" class="page">
+                    <img src="images/page6.png" alt="Page 6" class="page">
+                    <img src="images/page7.png" alt="Page 7" class="page">
+                    <img src="images/page8.png" alt="Page 8" class="page">
+                    <img src="images/page9.png" alt="Page 9" class="page">
+                    <img src="images/page10.png" alt="Page 10" class="page">
+                    <img src="images/page11.png" alt="Page 11" class="page">
+                    <img src="images/page12.png" alt="Page 12" class="page">
+                    <img src="images/page13.png" alt="Page 13" class="page">
+                    <img src="images/page14.png" alt="Page 14" class="page">
+                    <img src="images/page15.png" alt="Page 15" class="page">
+                    <img src="images/page16.png" alt="Page 16" class="page">
+                </div>
+
+                <!-- Page Counter -->
+                <div class="page-counter">Page <span id="current-page">1</span> of <span id="total-pages">16</span></div>
+            </div>
+
+            <div class="zoom-controls">
+            <button class="zoom-btn" id="zoomOut">-</button>
+            <button class="zoom-btn" id="resetZoom">100%</button>
+            <button class="zoom-btn" id="zoomIn">+</button>
+            </div>
+
+
+            <!-- Optional Download Button -->
+            <a href="path/to/full-publication.pdf" download class="download-btn">
+                Download Full Publication
+            </a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 The Hyacinth. All Rights Reserved.</p>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Sidebar Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('main');
+
+    menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+        mainContent.classList.toggle('shifted');
+    });
+
+    // Page Navigation System
+    const pages = Array.from(document.querySelectorAll('.page'));
+    let currentPage = 0;
+    let zoomLevel = 1;
+    
+    function showPage(index) {
+        if (index < 0 || index >= pages.length) return;
+        
+        pages[currentPage].classList.remove('active');
+        pages[index].classList.add('active');
+        currentPage = index;
+        
+        // Update counter
+        document.getElementById('current-page').textContent = currentPage + 1;
+    }
+
+    // Zoom functionality
+    function updateZoom() {
+        const activePage = document.querySelector('.page.active');
+        if (activePage) {
+            activePage.style.transform = `scale(${zoomLevel})`;
+            activePage.style.transformOrigin = 'center top';
+        }
+    }
+
+    // Navigation Controls
+    document.querySelector('.prev-btn').addEventListener('click', () => {
+        showPage(currentPage - 1);
+    });
+
+    document.querySelector('.next-btn').addEventListener('click', () => {
+        showPage(currentPage + 1);
+    });
+
+    // Zoom Controls
+    document.getElementById('zoomIn').addEventListener('click', () => {
+        if (zoomLevel < 2) {
+            zoomLevel += 0.1;
+            updateZoom();
+        }
+    });
+
+    document.getElementById('zoomOut').addEventListener('click', () => {
+        if (zoomLevel > 0.5) {
+            zoomLevel -= 0.1;
+            updateZoom();
+        }
+    });
+
+    document.getElementById('resetZoom').addEventListener('click', () => {
+        zoomLevel = 1;
+        updateZoom();
+    });
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') showPage(currentPage - 1);
+        if (e.key === 'ArrowRight') showPage(currentPage + 1);
+    });
+
+    // Initialize first page
+    showPage(0);
+});
+</script>
+</body>
+</html>
